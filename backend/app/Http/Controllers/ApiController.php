@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use Illuminate\Http\Request;
 use App\Http\Requests\CityRequest;
 use Illuminate\Support\Facades\Storage;
@@ -14,31 +15,26 @@ class ApiController extends Controller
     {
         $validatedData = $request->validated();
 
+        $result = "[]";
         if(isset($validatedData['name']) && !empty($validatedData['name']))
         {
-           echo $this->apiCall('weather',array('q'=>$validatedData['name']));
+            $city = City::getCityByName($validatedData['name']);
+            $result = "[]";
+            if(!empty($result))
+                $result = $this->apiCall('weather',array('id'=>$city->id));            
         }
         else
         {
-            echo $this->apiCall('weather',array('lat'=>$validatedData['lat'],'lon'=>$validatedData['lon']));
+            $cities = City::getCitiesInRadius($validatedData['lat'],$validatedData['lon'],$validatedData['radius']);
+
+            $cityIds = array();
+            foreach($cities as $city)
+                $cityIds[] = $city->id;
+
+            $result = $this->apiCall('group',array('id'=>implode(",",$cityIds),'units'=>'metric'));
         }
-    }
-
-    /**
-     * Calculates a box of coordinates from lat,lon and radius
-     */
-    private function calculateBbox($lat,$lon,$radius)
-    {
-        $earhRadius = 6371.01;
-        $radius = $radius/ $earhRadius; 
-        $minLat = $lat - $radius;
-        $maxLat = $lat + $radius;
-        $deltaLon = asin(sin($radius) / cos($lat));
-        $minLon = $lon - $deltaLon;
-        $maxLon = $lon + $deltaLon;
-
-        $zoom = 10; //WeatherMap needs it 
-        return $minLon.','.$minLat.','.$maxLon.','.$maxLat.','.$zoom;
+        
+        echo $result;
     }
 
     /**
