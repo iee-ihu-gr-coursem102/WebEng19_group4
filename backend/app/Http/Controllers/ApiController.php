@@ -11,6 +11,10 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 class ApiController extends Controller
 {
     private $apiKey = '7e0f958cd147286c8c3af0640e4d9bf6';
+
+    /**
+    * Search by city name or lat ,lon and radius
+    */
     public function cities(CityRequest $request)
     {
         $validatedData = $request->validated();
@@ -35,6 +39,16 @@ class ApiController extends Controller
         }
         
         echo $result;
+    }
+
+    /**
+    * Weather by id
+    */
+    public function weather($cityId)
+    {
+        //If city id doesn't exist throw 404
+        $city = City::findOrFail((int)$cityId);
+        echo $this->apiCall('weather',array('id'=>$city->id)); 
     }
 
     /**

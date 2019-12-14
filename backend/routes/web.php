@@ -12,3 +12,4 @@
 */
 
 Route::get('/cities', 'ApiController@cities');
+Route::get('/weather/{id}', 'ApiController@weather');
