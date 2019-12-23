@@ -30,7 +30,7 @@
 ## 99 Weather API
 
 | Method | Endpoint                                                  | Params                         | Response                                                     |     
-|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------|-----------------------------------------------------------|--------------------------------|--------------------------------------------------------------|
 | GET    | /api/cities?name=Sykies&lat=20.0&lon=40.0&radius=10       | Το name ή lat/lon/radius(km)   | Όπως http://bulk.openweathermap.org/sample/city.list.json.gz |
 | GET    | /api/weather/:id                                          | City id από το /api/cities     | Όπως https://openweathermap.org/current                      |
 | GET    | /api/forecast/:id                                         | -//-                           | Όπως https://openweathermap.org/forecast16                   |
