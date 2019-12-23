@@ -12,7 +12,7 @@
 της εφαρμογής και ο χρόνος που θα χρειαστεί για την υλοποίηση τους.
 
 * Migrations ( σχέδιο βάσης για χρήστες και δεδομένα καιρού ) *6 ώρες*
-* User Management ( Εγγραφή, είσοδος και αποθύκευση δεδομένων ) *12 ώρες*
+* User Management ( Εγγραφή, είσοδος και αποθήκευση δεδομένων ) *12 ώρες*
 * OpenWeather Integration ( Είσαγωγή δεδομένων από το OpenWeather και cache των δεδομένων για μείωση των request ) *12 ώρες*
 * API Endpoints ( Δημιουργία endpoints για επικοινωνία με το frontend ) *8 ώρες*
 
@@ -30,7 +30,7 @@
 ## 99 Weather API
 
 | Method | Endpoint                                                  | Params                         | Response                                                     |     
----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | GET    | /api/cities?name=Sykies&lat=20.0&lon=40.0&radius=10       | Το name ή lat/lon/radius(km)   | Όπως http://bulk.openweathermap.org/sample/city.list.json.gz |
 | GET    | /api/weather/:id                                          | City id από το /api/cities     | Όπως https://openweathermap.org/current                      |
 | GET    | /api/forecast/:id                                         | -//-                           | Όπως https://openweathermap.org/forecast16                   |
