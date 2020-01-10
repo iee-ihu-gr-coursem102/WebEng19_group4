@@ -25,7 +25,7 @@ class ApiController extends Controller
             $city = City::getCityByName($validatedData['name']);
             $result = "[]";
             if(!empty($result))
-                $result = $this->apiCall('weather',array('id'=>$city->id));            
+                $result = $this->apiCall('weather',array('id'=>$city->id));
         }
         else
         {
@@ -37,7 +37,7 @@ class ApiController extends Controller
 
             $result = $this->apiCall('group',array('id'=>implode(",",$cityIds),'units'=>'metric'));
         }
-        
+
         echo $result;
     }
 
@@ -48,7 +48,16 @@ class ApiController extends Controller
     {
         //If city id doesn't exist throw 404
         $city = City::findOrFail((int)$cityId);
-        echo $this->apiCall('weather',array('id'=>$city->id)); 
+        echo $this->apiCall('weather',array('id'=>$city->id));
+    }
+
+    /**
+     * Forecast by id
+     */
+    public function forecast($cityId,$cnt = 16)
+    {
+        $city = City::findOrFail((int)$cityId);
+        echo $this->apiCall('forecast',array('id'=>$city->id,'cnt'=>$cnt));
     }
 
     /**
@@ -58,7 +67,7 @@ class ApiController extends Controller
     {
         $parameters['APPID'] = $this->apiKey;
         $requestUrl = 'http://api.openweathermap.org/data/2.5/'.$request;
-        
+
         $firstPramater = true;
 
         foreach($parameters as $parameter => $value)
@@ -66,7 +75,7 @@ class ApiController extends Controller
             {
                 $requestUrl .= '?'.$parameter.'='.$value;
                 $firstPramater = false;
-            } 
+            }
             else
                 $requestUrl .= '&'.$parameter.'='.$value;
 
@@ -79,8 +88,8 @@ class ApiController extends Controller
             'Accept: application/json'
         ));
         $result = curl_exec($cURL);
-        curl_close($cURL);   
-        
+        curl_close($cURL);
+
         return $result;
     }
 }

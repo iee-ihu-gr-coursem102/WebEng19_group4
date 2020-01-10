@@ -13,3 +13,5 @@
 
 Route::get('/cities', 'ApiController@cities');
 Route::get('/weather/{id}', 'ApiController@weather');
+Route::get('/forecast/{id}', 'ApiController@forecast');
+Route::get('/forecast/{id}/{count}', 'ApiController@forecast');
