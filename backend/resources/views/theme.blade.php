@@ -15,7 +15,6 @@
                     <a href="{{ url("/setSkin?skin=friend") }}"><li class="menu-item @if ($data['skin'] == 'friend') selected @endif">Κάφρος Φίλος/η</li></a>
                     <a href="{{ url("/setSkin?skin=bank") }}"><li class="menu-item @if ($data['skin'] == 'bank') selected @endif">Τράπεζα</li></a>
                     <a href="{{ url("/setSkin?skin=tv") }}"><li class="menu-item @if ($data['skin'] == 'tv') selected @endif">Greek TV</li></a>
-                    <a href="{{ url("/setSkin?skin=dry") }}"><li class="menu-item @if ($data['skin'] == 'dry') selected @endif">Στεγνό</li></a>
                 </ul>
             </div>
         </div>

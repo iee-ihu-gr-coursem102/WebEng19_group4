@@ -16,10 +16,10 @@
                     @foreach ($data['forecast']['list'] as $weather)
                         <div class="forecast-item">
                             <div class="day">{{ $data['days'][date('N', strtotime($weather['dt_txt']))-1] }} {{ date('H:i', strtotime($weather['dt_txt'])) }}</div>
-                            <div class="temprature"><span>{{ $weather['main']['temp'] }}</span>°</div>
+                            <div class="temprature"><span> {{ $weather['main']['temp'] }}</span>°</div>
                             <div class="forecast">
                                 <img src="http://openweathermap.org/img/wn/{{ $weather['weather'][0]['icon'] }}@2x.png" alt="forecast-icon" />
-                                <p class="text">ψοφόκρυο</p>
+                                <p class="text">{{ App\Punchlines::getPunchLine($weather['main']['temp'],'small') }}</p>
                             </div>
                         </div>
                     @endforeach

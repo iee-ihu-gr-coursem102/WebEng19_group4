@@ -22,7 +22,7 @@ class City extends Model
         ->limit(1)
         ->get();
 
-        if(!empty($city))
+        if(!$city->isEmpty())
             return $city[0];
 
         return array();
