@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     protected $primaryKey = 'id';
-
+    private $apiKey = '7e0f958cd147286c8c3af0640e4d9bf6';
     protected $fillable = [
         'name',
         'country',
@@ -55,7 +55,40 @@ class City extends Model
         $result['minLat'] = $lat - rad2deg($radius/$earthRadius);
         $result['maxLon'] = $lon + rad2deg(asin($radius/$earthRadius) / cos(deg2rad($lat)));
         $result['minLon'] = $lon - rad2deg(asin($radius/$earthRadius) / cos(deg2rad($lat)));
-        
+
+        return $result;
+    }
+
+    /**
+     * Does the api call to openweather and returns the result
+     */
+    public function apiCall($request,$parameters)
+    {
+        $parameters['APPID'] = $this->apiKey;
+        $requestUrl = 'http://api.openweathermap.org/data/2.5/'.$request;
+
+        $firstPramater = true;
+
+        foreach($parameters as $parameter => $value)
+            if($firstPramater)
+            {
+                $requestUrl .= '?'.$parameter.'='.$value;
+                $firstPramater = false;
+            }
+            else
+                $requestUrl .= '&'.$parameter.'='.$value;
+
+        $cURL = curl_init();
+        curl_setopt($cURL, CURLOPT_URL, $requestUrl);
+        curl_setopt($cURL, CURLOPT_HTTPGET, true);
+        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($cURL, CURLOPT_HTTPHEADER, array(
+            'Content-Type: application/json',
+            'Accept: application/json'
+        ));
+        $result = curl_exec($cURL);
+        curl_close($cURL);
+
         return $result;
     }
 }

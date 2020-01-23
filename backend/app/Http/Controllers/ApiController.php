@@ -10,8 +10,6 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ApiController extends Controller
 {
-    private $apiKey = '7e0f958cd147286c8c3af0640e4d9bf6';
-
     /**
     * Search by city name or lat ,lon and radius
     */
@@ -25,7 +23,7 @@ class ApiController extends Controller
             $city = City::getCityByName($validatedData['name']);
             $result = "[]";
             if(!empty($result))
-                $result = $this->apiCall('weather',array('id'=>$city->id));
+                $result = $city->apiCall('weather',array('id'=>$city->id,'units'=>'metric'));
         }
         else
         {
@@ -35,7 +33,7 @@ class ApiController extends Controller
             foreach($cities as $city)
                 $cityIds[] = $city->id;
 
-            $result = $this->apiCall('group',array('id'=>implode(",",$cityIds),'units'=>'metric'));
+            $result = $city->apiCall('group',array('id'=>implode(",",$cityIds),'units'=>'metric'));
         }
 
         echo $result;
@@ -48,7 +46,7 @@ class ApiController extends Controller
     {
         //If city id doesn't exist throw 404
         $city = City::findOrFail((int)$cityId);
-        echo $this->apiCall('weather',array('id'=>$city->id));
+        echo $city->apiCall('weather',array('id'=>$city->id));
     }
 
     /**
@@ -57,39 +55,6 @@ class ApiController extends Controller
     public function forecast($cityId,$cnt = 16)
     {
         $city = City::findOrFail((int)$cityId);
-        echo $this->apiCall('forecast',array('id'=>$city->id,'cnt'=>$cnt));
-    }
-
-    /**
-    * Does the api call to openweather and returns the result
-    */
-    private function apiCall($request,$parameters)
-    {
-        $parameters['APPID'] = $this->apiKey;
-        $requestUrl = 'http://api.openweathermap.org/data/2.5/'.$request;
-
-        $firstPramater = true;
-
-        foreach($parameters as $parameter => $value)
-            if($firstPramater)
-            {
-                $requestUrl .= '?'.$parameter.'='.$value;
-                $firstPramater = false;
-            }
-            else
-                $requestUrl .= '&'.$parameter.'='.$value;
-
-        $cURL = curl_init();
-        curl_setopt($cURL, CURLOPT_URL, $requestUrl);
-        curl_setopt($cURL, CURLOPT_HTTPGET, true);
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($cURL, CURLOPT_HTTPHEADER, array(
-            'Content-Type: application/json',
-            'Accept: application/json'
-        ));
-        $result = curl_exec($cURL);
-        curl_close($cURL);
-
-        return $result;
+        echo $city->apiCall('forecast',array('id'=>$city->id,'cnt'=>$cnt));
     }
 }
