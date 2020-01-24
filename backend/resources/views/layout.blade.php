@@ -31,7 +31,7 @@
                     </div>
                 </div>
                 <div class="logo">
-                    <a href="/"><img src="{{ asset('assets/images/splash-icon.png') }}" alt="logo" /></a>
+                    <a href="{{url('/home')}}"><img src="{{ asset('assets/images/splash-icon.png') }}" alt="logo" /></a>
                 </div>
             </div>
         </header>

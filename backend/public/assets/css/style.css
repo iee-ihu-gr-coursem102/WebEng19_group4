@@ -36,7 +36,7 @@ body {
     height: 100%;
     max-height: 800px;
     padding: 20px 15px;
-    background-color: #efefef;
+    background-color: #ddd;
     border: 1px solid var(--border-color);
     
 }
@@ -176,7 +176,13 @@ body {
     text-align: center;
     transition: 0.25s ease all; -webkit-transition: 0.25s ease all; -o-transition: 0.25s ease all; -moz-transition:0.25s ease all;
 }
-
+.menu-item a{
+    text-decoration: none;
+    color:#333;
+}
+.menu-items li.selected a{
+    color:#fff;
+}
 .content.menu-content .content-inner .menu-items li:hover,
 .content.menu-content .content-inner .menu-items li.selected {
     background-color: var(--main-color);

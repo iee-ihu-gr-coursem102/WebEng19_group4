@@ -11,10 +11,10 @@
             </div>
             <div class="menu-items">
                 <ul class="list-unstyled menu-items-list">
-                    <a href="{{ url("/setSkin?skin=mother") }}"><li class="menu-item @if ($data['skin'] == 'mother') selected @endif">Ελληνίδα Μάνα</li></a>
-                    <a href="{{ url("/setSkin?skin=friend") }}"><li class="menu-item @if ($data['skin'] == 'friend') selected @endif">Κάφρος Φίλος/η</li></a>
-                    <a href="{{ url("/setSkin?skin=bank") }}"><li class="menu-item @if ($data['skin'] == 'bank') selected @endif">Τράπεζα</li></a>
-                    <a href="{{ url("/setSkin?skin=tv") }}"><li class="menu-item @if ($data['skin'] == 'tv') selected @endif">Greek TV</li></a>
+                    <li class="menu-item @if ($data['skin'] == 'mother') selected @endif"><a href="{{ url("/setSkin?skin=mother") }}">Ελληνίδα Μάνα</a></li>
+                    <li class="menu-item @if ($data['skin'] == 'friend') selected @endif"><a href="{{ url("/setSkin?skin=friend") }}">Κάφρος Φίλος/η</a></li>
+                    <li class="menu-item @if ($data['skin'] == 'bank') selected @endif"><a href="{{ url("/setSkin?skin=bank") }}">Τράπεζα</a></li>
+                    <li class="menu-item @if ($data['skin'] == 'tv') selected @endif"><a href="{{ url("/setSkin?skin=tv") }}">Greek TV</a></li>
                 </ul>
             </div>
         </div>
