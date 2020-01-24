@@ -44,3 +44,6 @@
 
 
 ![99 Weather Diagram](https://imgur.com/ddweBdi)
+
+
+Το backend είναι online στο http://99weather.livesoon.eu/public/home το ίδιο και το  mobile της εφαρμογής.
